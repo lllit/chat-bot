@@ -1,4 +1,3 @@
-"""Welcome to Reflex! This file outlines the steps to create a basic app."""
 import sys
 import os
 
@@ -8,29 +7,43 @@ import aiohttp
 import asyncio
 import reflex as rx
 from .utils.send_text_api import send_text_to_api, get_access_token
-
+import uuid
 from rxconfig import config
-
+ 
+import chat_bot.styles.styles as styles
 
 USERNAME_API = os.getenv("USERNAME_API")
 PASSWORD_API = os.getenv("PASSWORD_API")  
 
 class FormInputState(rx.State):
-    form_data: dict = "Esperando respuesta..."
-    response_data: str = "Esperando respuesta..."
-
+    form_data: dict = "Esperando pregunta..."
+    response_data: list[tuple[str, str]] = [("Esperando respuesta...", "")]
+    processing: bool = False
+    user_id: str = str(uuid.uuid4())
 
     @rx.event
     async def handle_submit(self, form_data: dict):
-        self.form_data = form_data
-        self.response_data = "Esperando respuesta..."
+        self.form_data = form_data.get("human_query", "")
+        #self.response_data.append("Esperando respuesta...")
+        self.response_data.append((self.form_data, "Esperando pregunta..."))
+        self.processing = True
+        yield
 
         token = await get_access_token(USERNAME_API, PASSWORD_API)
-        response = await send_text_to_api(data=self.form_data, token=token)
+        response = await send_text_to_api(data={"human_query": self.form_data}, token=token)
 
-        self.response_data = response
-        
+        self.response_data[-1] = (self.form_data, response)
+
+        print("Response_data[-1] ", self.response_data[-1])
+
+
         print("Self Response", self.response_data)
+        self.processing = False
+        yield
+
+    def clear_chat(self):
+        self.response_data = ["Esperando respuesta..."]
+        self.processing = False
 
         
         
@@ -40,26 +53,62 @@ class FormInputState(rx.State):
 def form_input1():
     return rx.card(
         rx.vstack(
-            rx.heading("💿 BOT SQL", align="center", class_name="pt-5"),
+            rx.hstack(
+                rx.icon("banana", size=30),
+                rx.heading("BOT SQL", align="center"),
+                class_name="mb-5 mt-5 pl-5 pr-5",
+                align="center",
+                justify="between",
+                width="100%",
+            ),
+            
             rx.divider(),
             #------- VISTA RESPUESTA ---------
             rx.vstack(
                 rx.hstack(
-                    rx.icon(tag="banana"),
                     rx.scroll_area(
                         rx.flex(
-                            rx.html(
-                                FormInputState.response_data.to_string(),
+                            rx.foreach(FormInputState.response_data, lambda pair: rx.vstack(
+                                rx.hstack(
+                                    rx.icon(tag="chevron-right"),
+                                    rx.html(f"{pair[0]}"),
+                                    align="start",
+                                    justify="start",
+                                    class_name="text-left",
+                                    wrap='nowrap',
+                                ),
+                                rx.hstack(
+                                    rx.html(f"{pair[1]}"),
+                                    rx.icon(tag="chevron-left"),
+                                    align="start",
+                                    justify="end",
+                                    class_name="text-right",
+                                    wrap='nowrap',
+                                ),
+                                width="100%",
+                                direction="column",
+                                spacing="5",
+                                class_name="mb-4 w-full",
+                                align="stretch",
+                                justify="between"
+                                ),
+                                
                             ),
+                            width="100%",
                             direction="column",
                             spacing="4",
                         ),
+                        width="100%",
                         type="hover",
                         scrollbars="vertical",
                         style={"max-height": "500px"},
+                        
                     ),
-                    align="stretch"
+                    width="100%",
+                    align="stretch",
                 ),
+                width="100%",
+                justify="between",
                 spacing="5",
                 class_name="mb-10 mt-5"
             ),
@@ -89,23 +138,29 @@ def form_input1():
             
         ),
         width="100%",
-        class_name="mt-10"
-        
+        class_name="mt-10",
     )
 
 
 def index() -> rx.Component:
-    # Welcome Page (Index)
     return rx.container(
         rx.color_mode.button(position="top-right"),
         rx.vstack(
             form_input1(),
             spacing="5",
-            justify="start",
+            justify="between",
             min_height="85vh",
         ),
     )
 
 
-app = rx.App()
-app.add_page(index)
+app = rx.App(
+    stylesheets=styles.STYLESHEETS,
+    style=styles.BASE_STYLE,
+    html_lang='es'
+)
+app.add_page(
+    index, 
+    title="Chat Bot"
+)
+
