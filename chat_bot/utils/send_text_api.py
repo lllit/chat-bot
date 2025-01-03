@@ -71,7 +71,7 @@ async def send_text_to_api(data: dict, token: str):
 
                     format_text = format_response_text(result_dict)
 
-                    return format_text
+                    return result_dict
                 else:
                     print("Error al comunicarse con la API:", response.status_code, response.text)
                     raise Exception("Failed to send text to API")

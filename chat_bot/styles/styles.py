@@ -24,11 +24,11 @@ STYLESHEETS = [
 
 BASE_STYLE = {
     "font_family": Font.Poppins_Fonts.value,
-    "color": TextColor.PRIMARY.value,
+    "color": TextColor.TERTIARY.value,
     "background": Color.PRIMARY.value,
     rx.heading: {
         "font_family": Font.Poppins_Fonts.value,
-        "color": TextColor.ACCENT.value
+        "color": TextColor.TERTIARY.value
     },
     rx.link: {
         "text_decoration": "none",
@@ -38,7 +38,8 @@ BASE_STYLE = {
         }
     },
     rx.el.span: {
-        "font_size": Size.MEDIUM.value
+        "font_size": Size.MEDIUM.value,
+        "color": TextColor.SECONDARY.value
     },
     rx.button: {
         "margin_bottom": Size.DEFAULT.value,
