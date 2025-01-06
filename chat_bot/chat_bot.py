@@ -9,6 +9,8 @@ import reflex as rx
 from chat_bot.pages.chat import chat_view
 from chat_bot.pages.about import about
 from chat_bot.pages.home import home_view
+from chat_bot.pages.chat_arriendos import chat_arriendos_view
+
 
 import chat_bot.styles.styles as styles
 
@@ -38,6 +40,11 @@ app.add_page(
     route="/chat"
 )
 
+app.add_page(
+    chat_arriendos_view,
+    title="Chat Arriendos",
+    route="/chat_arriendos"
+)
 
 
 app.add_page(

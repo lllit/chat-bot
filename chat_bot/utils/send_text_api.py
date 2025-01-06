@@ -47,7 +47,7 @@ data = {
     "human_query": "¿Cuál es la capital de Francia?"
 }
 
-# ---------- Enviar texto a mi api ------------
+# ---------- Enviar texto a mi api CODES ------------
 
 async def send_text_to_api(data: dict, token: str):
     try:
@@ -71,9 +71,9 @@ async def send_text_to_api(data: dict, token: str):
 
                     format_text = format_response_text(result_dict)
 
-                    return result_dict
+                    return format_text
                 else:
-                    print("Error al comunicarse con la API:", response.status_code, response.text)
+                    print("Error al comunicarse con la API:", response.status, response.text)
                     raise Exception("Failed to send text to API")
 
 
@@ -85,6 +85,51 @@ async def send_text_to_api(data: dict, token: str):
         reponse = {"message":"Error al conectar con la api"}
 
         return reponse
+
+
+
+# ------------ API AIRBNB ------------
+
+
+async def send_text_to_api_airbnb(data: dict, token: str):
+    try:
+        # URL de tu API
+        url = f"{URL_API}/human_response_airbnb"
+
+        headers = {
+            "Authorization": f"Bearer {token}"
+        }
+
+        # Enviar la solicitud POST con el token de acceso
+        response = requests.post(url, json=data, headers=headers)
+        
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=data, headers=headers) as response:
+                if response.status == 200:
+                    result_dict = await response.json()
+
+                    print("RESULT DICT: ",result_dict['message'])
+
+                    format_text = format_response_text(result_dict)
+
+                    return format_text
+                else:
+                    print("Error al comunicarse con la API:", response.status, response.text)
+                    raise Exception("Failed to send text to API")
+
+
+
+
+    except requests.exceptions.RequestException as e:
+        print("Error al intentar conectar con la API:", e)
+
+        reponse = {"message":"Error al conectar con la api"}
+
+        return reponse
+
+
+
 
 
 

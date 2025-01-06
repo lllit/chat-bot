@@ -9,24 +9,48 @@ from chat_bot.components.template_card import template_card
 
 def home_view() -> rx.Component:
     return rx.container(
-        navbar(),
+        navbar("Chat Bot"),
         vista_header(
-            titulo_header="Home Page", 
-            subtitle="This is the home page of the Chat Bot application."
+            titulo_header="Asistentes", 
+            subtitle="Es una pagina que respondera"
         ),
         
         rx.box(
             rx.link(
                 template_card(
+                    "message-square-code",
+                    "Asistente Codes LLLIT",
+                    "codeslllit asistente",
+                    "grass",
+                ),
+                padding=0,
+                href="/chat",
+                is_external=False,
+                style={"display": "contents"}
+            ),
+            rx.link(
+                template_card(
+                    "briefcase",
+                    "Asistente Arriendos",
+                    "Consultas sobre disponibilidad",
+                    "grass",
+                ),
+                padding=0,
+                href="/chat_arriendos",
+                is_external=False,
+                style={"display": "contents"}
+            ),
+            rx.link(
+                template_card(
                     "message-circle",
-                    "Hazle un pregunta a tu base de datos",
+                    "No avaliable",
                     "¿Cuantos usuarios tengo registrado?",
                     "grass",
                 ),
                 padding=0,
                 href="/chat",
                 is_external=False,
-                class_name="inline-block"
+                style={"display": "contents"}
             ),
             rx.link(
                 template_card(
@@ -38,10 +62,10 @@ def home_view() -> rx.Component:
                 padding=0,
                 href="/about",
                 is_external=False,
-                class_name="inline-block"
+                style={"display": "contents"}
             ),
             wrap="wrap",
-            class_name="p-5 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ",
+            class_name="p-2 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2",
         ),
         padding=0,
     )

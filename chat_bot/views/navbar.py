@@ -1,7 +1,7 @@
 import reflex as rx
 
 # --------- NAVBAR ------------
-def navbar() -> rx.Component:
+def navbar(titulo) -> rx.Component:
     return rx.hstack(
         rx.link(
             rx.icon("banana", size=25),
@@ -9,7 +9,7 @@ def navbar() -> rx.Component:
         ),
         
         rx.hstack(
-            rx.heading("BOT SQL", position="top-left", size="4"),
+            rx.heading(titulo, position="top-left", size="3"),
             align="center",
             justify="center",
             width="100%",
@@ -18,6 +18,11 @@ def navbar() -> rx.Component:
             rx.link(
                 rx.icon("message-square-code"),
                 href="/chat",
+                is_external=False
+            ),
+            rx.link(
+                rx.icon("briefcase"),
+                href="/chat_arriendos",
                 is_external=False
             ),
             rx.link(
