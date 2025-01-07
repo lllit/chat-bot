@@ -5,4 +5,5 @@ assets/external/
 __pycache__/
 
 .env
-venv
+
+venv/
