@@ -42,18 +42,6 @@ def home_view() -> rx.Component:
             ),
             rx.link(
                 template_card(
-                    "message-circle",
-                    "No avaliable",
-                    "¿Cuantos usuarios tengo registrado?",
-                    "grass",
-                ),
-                padding=0,
-                href="/chat",
-                is_external=False,
-                style={"display": "contents"}
-            ),
-            rx.link(
-                template_card(
                     "badge-info",
                     "Sobre esta aplicación",
                     "Dejanos feedback",
