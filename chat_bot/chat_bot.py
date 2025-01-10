@@ -31,24 +31,28 @@ app = rx.App(
 app.add_page(
     home_view, 
     title="Home", 
-    route="/"
+    route="/",
+    image="favicon.ico"
 )
 
 app.add_page(
     chat_view, 
     title="Chat Bot",
-    route="/chat"
+    route="/chat",
+    image="favicon.ico"
 )
 
 app.add_page(
     chat_arriendos_view,
     title="Chat Arriendos",
-    route="/chat_arriendos"
+    route="/chat_arriendos",
+    image="favicon.ico"
 )
 
 
 app.add_page(
     about,
     title="About", 
-    route="/about"
+    route="/about",
+    image="favicon.ico"
 )
