@@ -1,5 +1,13 @@
 # Chat Bot Project
 
+> Escritorio
+
+![chat-bot](https://github.com/user-attachments/assets/e87a0a22-014d-4625-82f6-eebb64a90897)
+
+> Mobile version
+
+![chat-bot-mobile](https://github.com/user-attachments/assets/7ec5b642-fc1f-4dc2-8cef-ff6808d3fe4f)
+
 ## Descripción
 
 Este proyecto es un **chat bot** que utiliza inteligencia artificial para interactuar con los usuarios. El chat bot está conectado a una base de datos llamada **Supabase**, lo que le permite acceder y gestionar información de manera eficiente. La aplicación web está desarrollada en **Python** utilizando el framework **Reflex** (más información).
