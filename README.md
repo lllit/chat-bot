@@ -10,13 +10,14 @@
 
 ## Descripción
 
-Este proyecto es un **chat bot** que utiliza inteligencia artificial para interactuar con los usuarios. El chat bot está conectado a una base de datos llamada **Supabase**, lo que le permite acceder y gestionar información de manera eficiente. La aplicación web está desarrollada en **Python** utilizando el framework **Reflex** (más información).
+Este proyecto es un **chat bot** que utiliza inteligencia artificial para interactuar con los usuarios. El chat bot está conectado a una base de datos llamada **Supabase**, lo que le permite acceder y gestionar información de manera eficiente. La aplicación web está desarrollada en **Python** utilizando el framework **Reflex** (más información). Además, el chat bot se conecta a una API desarrollada con **FastAPI**.
 
 ## Características
 
 - **Interacción Inteligente**: El chat bot utiliza algoritmos avanzados de inteligencia artificial para comprender y responder a las consultas de los usuarios.
 - **Conexión a Supabase**: La integración con Supabase permite al chat bot leer y escribir datos en tiempo real, mejorando la precisión y relevancia de las respuestas.
 - **Framework Reflex**: La aplicación web está construida con Reflex, un framework de Python que facilita el desarrollo de interfaces web interactivas y dinámicas.
+- **API con FastAPI**: El chat bot se conecta a una API desarrollada con FastAPI, lo que permite una comunicación rápida y eficiente entre el chat bot y el servidor.
 - **Interfaz Web**: El proyecto incluye una interfaz web accesible en este enlace, donde los usuarios pueden interactuar con el chat bot.
 
 ## Instalación
