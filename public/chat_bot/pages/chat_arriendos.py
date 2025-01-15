@@ -7,8 +7,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import reflex as rx
 import uuid
 
-from chat_bot.views.navbar import navbar
-from chat_bot.utils.send_text_api import get_access_token, send_text_to_api_airbnb
+from chatbot.views.navbar import navbar
+from chatbot.utils.send_text_api import get_access_token, send_text_to_api_airbnb
 
 
 USERNAME_API = os.getenv("USERNAME_API")

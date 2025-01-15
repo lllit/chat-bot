@@ -1,8 +1,8 @@
 import reflex as rx
 
-from chat_bot.views.navbar import navbar
+from chatbot.views.navbar import navbar
 
-from chat_bot.components.vista_header import vista_header
+from chatbot.components.vista_header import vista_header
 
 def about() -> rx.Component:
     return rx.container(

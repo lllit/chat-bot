@@ -6,13 +6,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import reflex as rx
 
 # ------- IMPORT PAGES----
-from chat_bot.pages.chat import chat_view
-from chat_bot.pages.about import about
-from chat_bot.pages.home import home_view
-from chat_bot.pages.chat_arriendos import chat_arriendos_view
+from chatbot.pages.chat import chat_view
+from chatbot.pages.about import about
+from chatbot.pages.home import home_view
+from chatbot.pages.chat_arriendos import chat_arriendos_view
 
 
-import chat_bot.styles.styles as styles
+import chatbot.styles.styles as styles
 
 # --- APP ---
 

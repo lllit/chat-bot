@@ -1,9 +1,9 @@
 import reflex as rx
 
-from chat_bot.views.navbar import navbar
+from chatbot.views.navbar import navbar
 
-from chat_bot.components.vista_header import vista_header
-from chat_bot.components.template_card import template_card
+from chatbot.components.vista_header import vista_header
+from chatbot.components.template_card import template_card
 
 
 

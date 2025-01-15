@@ -7,17 +7,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import reflex as rx
 import uuid
 
-from chat_bot.utils.send_text_api import send_text_to_api, get_access_token
-
-from chat_bot.views.navbar import navbar
+from chatbot.views.navbar import navbar
+from chatbot.utils.send_text_api import get_access_token, send_text_to_api_airbnb
 
 
 USERNAME_API = os.getenv("USERNAME_API")
-PASSWORD_API = os.getenv("PASSWORD_API")  
+PASSWORD_API = os.getenv("PASSWORD_API") 
 
-# --- ESTADOS ----
-
-class FormInputState(rx.State):
+class FormInputStateArriendo(rx.State):
     form_data: str = ""
     response_data: list[tuple[str, str]] = []
     processing: bool = False
@@ -31,7 +28,7 @@ class FormInputState(rx.State):
         yield
 
         token = await get_access_token(USERNAME_API, PASSWORD_API)
-        response = await send_text_to_api(data={"human_query": self.form_data}, token=token)
+        response = await send_text_to_api_airbnb(data={"human_query": self.form_data}, token=token)
 
         self.response_data[-1] = (self.form_data, response)
 
@@ -47,7 +44,6 @@ class FormInputState(rx.State):
         self.processing = False
 
 
-   
 # -------- BOTON DE ENVIO ------------
 def input_form() -> rx.Component:
     return rx.form.root(
@@ -67,76 +63,10 @@ def input_form() -> rx.Component:
                 ),
                 width="100%",
             ),
-            on_submit=FormInputState.handle_submit,
+            on_submit=FormInputStateArriendo.handle_submit,
             reset_on_submit=True,
             class_name="absolute bottom-0 left-0 w-full p-4 mb-4 mt-4"
         ),
-
-
-# --------- VISTA RESPUESTA --------------
-def respuesta_old() -> rx.Component:
-    return rx.card(
-        rx.vstack(
-            rx.vstack(
-                rx.hstack(
-                    rx.scroll_area(
-                        rx.flex(
-                            rx.foreach(FormInputState.response_data, lambda pair: rx.vstack(
-                                rx.hstack(
-                                    rx.icon(tag="chevron-right"),
-                                    rx.html(f"{pair[0]}"),
-                                    align="start",
-                                    justify="start",
-                                    class_name="text-left",
-                                    wrap='nowrap',
-                                ),
-                                rx.hstack(
-                                    rx.html(f"{pair[1]}"),
-                                    rx.icon(tag="chevron-left"),
-                                    align="start",
-                                    justify="end",
-                                    class_name="text-right",
-                                    wrap='nowrap',
-                                ),
-                                width="100%",
-                                direction="column",
-                                spacing="5",
-                                class_name="mb-4 w-full",
-                                align="stretch",
-                                justify="between"
-                                ),
-                                
-                            ),
-                            width="100%",
-                            direction="column",
-                            spacing="4",
-                        ),
-                        width="100%",
-                        type="hover",
-                        scrollbars="vertical",
-                        style={"max-height": "500px"},
-                        
-                    ),
-                    width="100%",
-                    align="stretch",
-                ),
-                width="100%",
-                justify="between",
-                spacing="5",
-                class_name="mb-10 mt-5"
-            ),
-            
-            align_items="center",
-            width="100%",
-            
-        ),
-        width="100%",
-        class_name="mt-10",
-    )
-
-
-
-
 
 
 #------- VISTA RESPUESTA ---------
@@ -146,14 +76,13 @@ def respuesta() -> rx.Component:
             rx.hstack(
                 rx.scroll_area(
                     rx.flex(
-                        rx.foreach(FormInputState.response_data, lambda pair: rx.vstack(
+                        rx.foreach(FormInputStateArriendo.response_data, lambda pair: rx.vstack(
                             # PREGUNTA
                             rx.hstack(
                                 rx.box(
                                     rx.icon(tag="chevron-right"),
                                     class_name="align-start"
                                 ),
-                                
                                 rx.markdown(f"{pair[0]}"),
                                 align="start",
                                 justify="start",
@@ -167,20 +96,22 @@ def respuesta() -> rx.Component:
                                     class_name="[&>p]:!my-2.5"
                                 ),
                                 rx.box(
-                                    rx.icon(tag="chevron-left"),
-                                    class_name="align-start",
+                                    rx.icon(tag="bot"),
+                                    class_name="align-start flex-shrink-0",
                                 ),
-                                align="start",
+                                #align="start",
                                 justify="end",
-                                class_name="text-right",
+                                class_name="text-right flex-grow",
                                 wrap='nowrap',
+                                style={".css-ij70qr .rt-r-ai-start": {"align-items": "start"}}
                             ),
                             width="100%",
                             direction="column",
                             spacing="5",
                             class_name="mb-0 w-full pl-3 pr-3",
                             align="stretch",
-                            justify="between"
+                            justify="between",
+                            
                             ),
                             
                         ),
@@ -210,18 +141,17 @@ def respuesta() -> rx.Component:
 
 # ----- VISTA GENERAL -----
 
-def chat_view() -> rx.Component:
+def chat_arriendos_view() -> rx.Component:
     return rx.container(
-        rx.vstack (
-            navbar("Asistente Codes"),
+        rx.vstack(
+            navbar("Asistente Arriendos"),
             rx.divider(),
             respuesta(),
             input_form(),
             class_name="relative overflow-hidden",
             min_height="100vh",
-            padding="0", 
+            padding="0",
         ),
-        padding="0",
+        padding="0", 
         class_name="relative overflow-y-hidden"
     )
-        
